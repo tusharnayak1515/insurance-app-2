@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { QuestionService } from '../services/question/question.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ask-question',
@@ -8,25 +9,31 @@ import { QuestionService } from '../services/question/question.service';
 })
 export class AskQuestionComponent implements OnInit {
 
-  constructor(private questionService: QuestionService) { }
+  questionText:string = "";
+
+  constructor(private questionService: QuestionService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  askQuestion(questionText: string): void {
-    if (!questionText || questionText.trim().length === 0) {
+  askQuestion(): void {
+    if (!this.questionText || this.questionText.replace("/\s/g","").trim().length === 0) {
       console.error('Question text cannot be empty.');
-      return;
+    }
+    else {
+      this.questionService.askQuestion(this.questionText).subscribe(
+        (response) => {
+          if(response.success) {
+            this.questionText = "";
+            this.router.navigate(['customer','question-history']);
+          }
+        },
+        error => {
+          console.error('Error asking question:', error);
+        }
+      );
     }
 
-    this.questionService.askQuestion(questionText).subscribe(
-      response => {
-        console.log('Question asked successfully.');
-      },
-      error => {
-        console.error('Error asking question:', error);
-      }
-    );
   }
 }
 

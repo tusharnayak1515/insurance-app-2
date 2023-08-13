@@ -4,30 +4,18 @@
     <table>
       <thead>
         <tr>
-          <th>Series</th>
+          <th>Sl No</th>
           <th>Policy Name</th>
           <th>Date</th>
           <th>Status</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>PS001</td>
-          <td>Life Insurance</td>
-          <td>25/8/2023</td>
-          <td>Active</td>
-        </tr>
-        <tr>
-          <td>PS002</td>
-          <td>Health Insurance</td>
-          <td>12/8/2023</td>
-          <td>Pending</td>
-        </tr>
-        <tr>
-          <td>PS003</td>
-          <td>Life Insurance</td>
-          <td>27/9/2023</td>
-          <td>Active</td>
+        <tr *ngFor="let customerPolicy of appliedPolicies; let i = index;">
+          <td>{{i+1}}</td>
+          <td>{{customerPolicy!.policy!.policyName}}</td>
+          <td>{{customerPolicy!.createdAt | date}}</td>
+          <td>{{customerPolicy!.status}}</td>
         </tr>
       </tbody>
     </table>

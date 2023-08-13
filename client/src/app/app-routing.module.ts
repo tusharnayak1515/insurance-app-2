@@ -46,6 +46,9 @@ const routes: Routes = [
       path: 'question-history', component: QuestionHistoryComponent, pathMatch: 'full'
     },
     {
+      path: 'categories', component: CategoriesComponent, pathMatch: 'full'
+    },
+    {
       path: 'profile', component: ProfileComponent, pathMatch: 'full'
     }
   ]},

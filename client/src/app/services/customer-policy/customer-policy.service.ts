@@ -14,8 +14,12 @@ export class CustomerPolicyService {
     return this.http.get<any[]>(`${this.apiUrl}/api/customer-policy/`);
   }
   
-  public viewMyCustomerPolicies(): Observable<any> {
+  public viewMyPolicies(): Observable<any> {
     return this.http.get<any[]>(`${this.apiUrl}/api/customer-policy/mypolicies`);
+  }
+
+  public applyPolicy(id:number):Observable<any> {
+    return this.http.post<any[]>(`${this.apiUrl}/api/customer-policy/${id}`, {});
   }
 
   public approvePolicy(id:number):Observable<any> {

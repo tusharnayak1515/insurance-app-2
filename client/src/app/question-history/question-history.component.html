@@ -1,22 +1,21 @@
 <div id="container">
-    <h1>Question History</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Serial No</th>
-          <th>Question</th>
-          <th>Admin Comment</th>
-          <th>Asked Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-           <td>1</td>
-          <td>Hi, How are you?</td>
-          <td>I'm Fine</td>
-          <td>Aug 9, 2023</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  
+  <h1>Question History</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>SL No</th>
+        <th>Question</th>
+        <th>Admin Comment</th>
+        <th>Asked Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let question of history; let i = index;">
+        <td>{{i+1}}</td>
+        <td>{{question!.questionText}}</td>
+        <td>{{question!.answerText || 'Not answered'}}</td>
+        <td>{{question!.createdAt | date}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -14,10 +14,6 @@ export class PolicyService {
     return this.http.get(`${this.apiUrl}/api/policy/`);
   }
 
-  getAppliedPolicies(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/api/customer-policy/mypolicies`);
-  }
-
   deletePolicy(policyId: number): Observable<any> {
     const url = `${this.apiUrl}/api/policy/${policyId}`;
     return this.http.delete(url);

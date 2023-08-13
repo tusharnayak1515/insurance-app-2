@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'; 
 import { QuestionService } from '../services/question/question.service';
 
 
@@ -11,11 +10,9 @@ import { QuestionService } from '../services/question/question.service';
 })
 export class QuestionHistoryComponent implements OnInit {
 
-  question: any;
   history: any[] = [];
 
   constructor(
-    private route: ActivatedRoute,
     private questionService: QuestionService
   ) { }
 
@@ -25,11 +22,8 @@ export class QuestionHistoryComponent implements OnInit {
   getQuestionAndHistory(): void {
     this.questionService.getQuestionHistory().subscribe(
       (response:any) => {
-        if (Array.isArray(response) && response.length > 0) {
-          this.question = response[0]; 
-          this.history = response.slice(1); 
-        } else {
-          console.error(' invalid response received.');
+        if(response.success) {
+          this.history = response.list;
         }
       },
       (error:any) => {

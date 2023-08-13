@@ -68,19 +68,6 @@ export class PoliciesComponent implements OnInit {
     );
   }
 
-  viewAppliedPolicies() {
-    this.policyService.getAppliedPolicies().subscribe(
-      (response) => {
-        if (response.success) {
-          this.policies = response?.list;
-        }
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
-  }
-
   viewAllPolicies() {
     this.policyService.getAllPolicies().subscribe(
       (response: any) => {
