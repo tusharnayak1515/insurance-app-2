@@ -18,18 +18,23 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let policy of policies; let i = index;">
-            <td>{{i+1}}</td>
-            <td>{{policy!.policyName}}</td>
-            <td>{{policy!.policycategory!.name}}</td>
-            <td>{{policy!.sumAssured}}</td>
-            <td>{{policy!.premiumAmount}}</td>
-            <td>{{policy!.tenure}}</td>
-            <td>{{policy.createdAt | date}}</td>
-            <td>{{policy.updatedAt | date}}</td>
+          <tr *ngFor="let policy of policies; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ policy!.policyName }}</td>
+            <td>{{ policy!.policycategory!.name }}</td>
+            <td>{{ policy!.sumAssured }}</td>
+            <td>{{ policy!.premiumAmount }}</td>
+            <td>{{ policy!.tenure }}</td>
+            <td>{{ policy.createdAt | date }}</td>
+            <td>{{ policy.updatedAt | date }}</td>
             <td class="update-buttons">
-              <button data-bs-toggle="modal" data-bs-target="#updatePolicyModal"
-                (click)="onEdit(policy)">update</button>
+              <button
+                data-bs-toggle="modal"
+                data-bs-target="#updatePolicyModal"
+                (click)="onEdit(policy)"
+              >
+                update
+              </button>
             </td>
             <td class="delete-buttons">
               <button (click)="deletePolicy(policy!.policyId)">Delete</button>
@@ -38,125 +43,356 @@
         </tbody>
       </table>
     </div>
-    <br>
+    <br />
     <div class="add-policy-button">
-      <button data-bs-toggle="modal" data-bs-target="#addPolicyModal">Add Policy</button>
+      <button data-bs-toggle="modal" data-bs-target="#addPolicyModal">
+        Add Policy
+      </button>
     </div>
   </div>
 </div>
 
 <!-- Add Policy -->
-<div class="modal fade" id="addPolicyModal" tabindex="-1" role="dialog" aria-labelledby="addPolicyModalLabel"
-  aria-hidden="true">
+<div
+  class="modal fade"
+  id="addPolicyModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="addPolicyModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="addPolicyModalLabel">Add Policy</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+        <button
+          type="button"
+          class="close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form #addPolicyForm="ngForm">
           <div class="form-group mb-2">
             <label for="policyName" class="form-label">Policy Name</label>
-            <input type="text" class="form-control" id="policyName" name="policyName" [(ngModel)]="policyName" />
+            <input
+              type="text"
+              class="form-control"
+              id="policyName"
+              name="policyName"
+              [(ngModel)]="policyName"
+            />
+            <div
+              *ngIf="
+                addPolicyForm.controls['policyName']?.invalid &&
+                addPolicyForm.controls['policyName']?.touched
+              "
+            >
+              <span
+                *ngIf="addPolicyForm.controls['policyName'].errors?.['required']"
+                class="mt-4 text-sm text-danger"
+                >Policy name is required.</span
+              >
+            </div>
           </div>
 
           <div class="form-group mb-2">
             <label for="policydesc" class="form-label">Policy Desciption</label>
-            <textarea class="form-control" name="policydesc" id="policydesc" [(ngModel)]="policydesc"></textarea>
+            <textarea
+              class="form-control"
+              name="policydesc"
+              id="policydesc"
+              [(ngModel)]="policydesc"
+            ></textarea>
+            <div
+              *ngIf="
+                addPolicyForm.controls['policydesc']?.invalid &&
+                addPolicyForm.controls['policydesc']?.touched
+              "
+            >
+              <span
+                *ngIf="addPolicyForm.controls['policydesc'].errors?.['required']"
+                class="mt-4 text-sm text-danger"
+                >Policy description is required.</span
+              >
+            </div>
           </div>
 
           <div class="form-group">
             <label for="categoryId" class="form-label">Policy Category</label>
-            <select name="categoryId" id="categoryId" class="form-control" [(ngModel)]="categoryId">
-              <option *ngFor="let category of categories; let i = index;" value={{category!.categoryId}}>
-                {{category!.name}}</option>
+            <select
+              name="categoryId"
+              id="categoryId"
+              class="form-control"
+              [(ngModel)]="categoryId"
+            >
+              <option
+                *ngFor="let category of categories; let i = index"
+                value="{{ category!.categoryId }}"
+              >
+                {{ category!.name }}
+              </option>
             </select>
           </div>
 
           <div class="form-group mb-2">
             <label for="sumAssured" class="form-label">Sum Assured</label>
-            <input type="number" class="form-control" id="sumAssured" name="sumAssured" [(ngModel)]="sumAssured" />
+            <input
+              type="number"
+              class="form-control"
+              id="sumAssured"
+              name="sumAssured"
+              [(ngModel)]="sumAssured"
+            />
+            <div
+              *ngIf="
+                addPolicyForm.controls['sumAssured']?.invalid &&
+                addPolicyForm.controls['sumAssured']?.touched
+              "
+            >
+              <span
+                *ngIf="addPolicyForm.controls['sumAssured'].errors?.['required']"
+                class="mt-4 text-sm text-danger"
+                >Sum assured is required.</span
+              >
+            </div>
           </div>
 
           <div class="form-group mb-2">
             <label for="premiumAmount" class="form-label">Premium Amount</label>
-            <input type="number" class="form-control" id="premiumAmount" name="premiumAmount"
-              [(ngModel)]="premiumAmount" />
+            <input
+              type="number"
+              class="form-control"
+              id="premiumAmount"
+              name="premiumAmount"
+              [(ngModel)]="premiumAmount"
+            />
+            <div
+              *ngIf="
+                addPolicyForm.controls['premiumAmount']?.invalid &&
+                addPolicyForm.controls['premiumAmount']?.touched
+              "
+            >
+              <span
+                *ngIf="addPolicyForm.controls['premiumAmount'].errors?.['required']"
+                class="mt-4 text-sm text-danger"
+                >Premium Amount is required.</span
+              >
+            </div>
           </div>
 
           <div class="form-group mb-2">
             <label for="tenure" class="form-label">Tenure</label>
-            <input type="number" class="form-control" id="tenure" name="tenure" [(ngModel)]="tenure" />
+            <input
+              type="number"
+              class="form-control"
+              id="tenure"
+              name="tenure"
+              [(ngModel)]="tenure"
+            />
+            <div
+              *ngIf="
+                addPolicyForm.controls['tenure']?.invalid &&
+                addPolicyForm.controls['tenure']?.touched
+              "
+            >
+              <span
+                *ngIf="addPolicyForm.controls['tenure'].errors?.['required']"
+                class="mt-4 text-sm text-danger"
+                >Tenure is required.</span
+              >
+            </div>
           </div>
-
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="addPolicy()">Add</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="addPolicy()"
+        >
+          Add
+        </button>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Update Policy -->
-<div class="modal fade" id="updatePolicyModal" tabindex="-1" role="dialog" aria-labelledby="updatePolicyModalLabel"
-  aria-hidden="true">
+<div
+  class="modal fade"
+  id="updatePolicyModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="updatePolicyModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="updatePolicyModalLabel">Update Policy</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+        <button
+          type="button"
+          class="close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form *ngIf="policy !== null">
+        <form *ngIf="policy !== null" #updatePolicyForm="ngForm">
           <div class="form-group mb-2">
             <label for="policyName" class="form-label">Policy Name</label>
-            <input type="text" class="form-control" id="policyName" name="policyName"
-              [(ngModel)]="policy!.policyName" />
+            <input
+              type="text"
+              class="form-control"
+              id="policyName"
+              name="policyName"
+              [(ngModel)]="policy!.policyName"
+            />
+            <div
+              *ngIf="
+                updatePolicyForm.controls['policyName']?.invalid &&
+                updatePolicyForm.controls['policyName']?.touched
+              "
+            >
+              <span
+                *ngIf="updatePolicyForm.controls['policyName'].errors?.['required']"
+                class="mt-4 text-sm text-danger"
+                >Policy Name is required.</span
+              >
+            </div>
           </div>
 
           <div class="form-group mb-2">
             <label for="policydesc" class="form-label">Policy Desciption</label>
-            <textarea class="form-control" name="policydesc" id="policydesc"
-              [(ngModel)]="policy!.policydesc"></textarea>
+            <textarea
+              class="form-control"
+              name="policydesc"
+              id="policydesc"
+              [(ngModel)]="policy!.policydesc"
+            ></textarea>
+            <div
+              *ngIf="
+                updatePolicyForm.controls['policydesc']?.invalid &&
+                updatePolicyForm.controls['policydesc']?.touched
+              "
+            >
+              <span
+                *ngIf="updatePolicyForm.controls['policydesc'].errors?.['required']"
+                class="mt-4 text-sm text-danger"
+                >Policy Description is required.</span
+              >
+            </div>
           </div>
 
           <div class="form-group">
             <label for="categoryId" class="form-label">Policy Category</label>
-            <select name="categoryId" id="categoryId" class="form-control" [(ngModel)]="policy!.categoryId">
-              <option *ngFor="let category of categories; let i = index;" value={{category!.categoryId}}>
-                {{category!.name}}</option>
+            <select
+              name="categoryId"
+              id="categoryId"
+              class="form-control"
+              [(ngModel)]="policy!.categoryId"
+            >
+              <option
+                *ngFor="let category of categories; let i = index"
+                value="{{ category!.categoryId }}"
+              >
+                {{ category!.name }}
+              </option>
             </select>
           </div>
 
           <div class="form-group mb-2">
             <label for="sumAssured" class="form-label">Sum Assured</label>
-            <input type="number" class="form-control" id="sumAssured" name="sumAssured"
-              [(ngModel)]="policy!.sumAssured" />
+            <input
+              type="number"
+              class="form-control"
+              id="sumAssured"
+              name="sumAssured"
+              [(ngModel)]="policy!.sumAssured"
+            />
+            <div
+              *ngIf="
+                updatePolicyForm.controls['sumAssured']?.invalid &&
+                updatePolicyForm.controls['sumAssured']?.touched
+              "
+            >
+              <span
+                *ngIf="updatePolicyForm.controls['sumAssured'].errors?.['required']"
+                class="mt-4 text-sm text-danger"
+                >Sum Assured is required.</span
+              >
+            </div>
           </div>
 
           <div class="form-group mb-2">
             <label for="premiumAmount" class="form-label">Premium Amount</label>
-            <input type="number" class="form-control" id="premiumAmount" name="premiumAmount"
-              [(ngModel)]="policy!.premiumAmount" />
+            <input
+              type="number"
+              class="form-control"
+              id="premiumAmount"
+              name="premiumAmount"
+              [(ngModel)]="policy!.premiumAmount"
+            />
+            <div
+              *ngIf="
+                updatePolicyForm.controls['premiumAmount']?.invalid &&
+                updatePolicyForm.controls['premiumAmount']?.touched
+              "
+            >
+              <span
+                *ngIf="updatePolicyForm.controls['premiumAmount'].errors?.['required']"
+                class="mt-4 text-sm text-danger"
+                >Premium Amount is required.</span
+              >
+            </div>
           </div>
 
           <div class="form-group mb-2">
             <label for="tenure" class="form-label">Tenure</label>
-            <input type="number" class="form-control" id="tenure" name="tenure" [(ngModel)]="policy!.tenure" />
+            <input
+              type="number"
+              class="form-control"
+              id="tenure"
+              name="tenure"
+              [(ngModel)]="policy!.tenure"
+            />
+            <div
+              *ngIf="
+                updatePolicyForm.controls['tenure']?.invalid &&
+                updatePolicyForm.controls['tenure']?.touched
+              "
+            >
+              <span
+                *ngIf="updatePolicyForm.controls['tenure'].errors?.['required']"
+                class="mt-4 text-sm text-danger"
+                >Tenure is required.</span
+              >
+            </div>
           </div>
-
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updatePolicy()">Update</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="updatePolicy()"
+        >
+          Update
+        </button>
       </div>
     </div>
   </div>

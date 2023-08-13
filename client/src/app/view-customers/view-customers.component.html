@@ -1,81 +1,179 @@
 <div class="p-5">
-    <p class="mb-3 text-center h3">Customers</p>
-    <div class="myContainer">
-        <div class="table-responsive" *ngIf="customers && customers.length > 0; else emptyCustomers">
-            <table class="table table-striped">
-                <thead>
-                    <tr class="table-primary">
-                        <th scope="col">ID</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Mobile</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Update</th>
-                        <th scope="col">Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let customer of customers;">
-                        <th scope="row">{{customer?.userId}}</th>
-                        <td>{{customer?.username}}</td>
-                        <td>{{customer?.email}}</td>
-                        <td>{{customer?.mobile}}</td>
-                        <td>{{customer?.address || 'Not updated'}}</td>
-                        <td>
-                            <i class="bi bi-pencil-square text-warning" data-bs-toggle="modal"
-                                data-bs-target="#updateUserModal" (click)="onEdit(customer)"></i>
-                        </td>
-                        <td>
-                            <i class="bi bi-trash-fill text-danger" (click)="deleteCustomer(customer?.userId)"></i>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <ng-template #emptyCustomers>
-            <p class="h3 text-center">No customers to display</p>
-        </ng-template>
+  <p class="mb-3 text-center h3">Customers</p>
+  <div class="myContainer">
+    <div
+      class="table-responsive"
+      *ngIf="customers && customers.length > 0; else emptyCustomers"
+    >
+      <table class="table table-striped">
+        <thead>
+          <tr class="table-primary">
+            <th scope="col">ID</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col">Mobile</th>
+            <th scope="col">Address</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let customer of customers">
+            <th scope="row">{{ customer?.userId }}</th>
+            <td>{{ customer?.username }}</td>
+            <td>{{ customer?.email }}</td>
+            <td>{{ customer?.mobile }}</td>
+            <td>{{ customer?.address || "Not updated" }}</td>
+            <td>
+              <i
+                class="bi bi-pencil-square text-warning"
+                data-bs-toggle="modal"
+                data-bs-target="#updateUserModal"
+                (click)="onEdit(customer)"
+              ></i>
+            </td>
+            <td>
+              <i
+                class="bi bi-trash-fill text-danger"
+                (click)="deleteCustomer(customer?.userId)"
+              ></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+
+    <ng-template #emptyCustomers>
+      <p class="h3 text-center">No customers to display</p>
+    </ng-template>
+  </div>
 </div>
 
 <!-- Update Customer -->
-<div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="updateUserModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="updateUserModalLabel">Update User</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form *ngIf="customer !== null">
-                    <div class="form-group mb-3">
-                        <label for="username">Username</label>
-                        <input type="text" class="form-control" id="username" name="username"
-                            [(ngModel)]="customer!.username" />
-                    </div>
+<div
+  class="modal fade"
+  id="updateUserModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="updateUserModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateUserModalLabel">Update User</h5>
+        <button
+          type="button"
+          class="close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #customerForm="ngForm" *ngIf="customer !== null">
+          <div class="form-group mb-3">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              name="username"
+              [(ngModel)]="customer!.username"
+              required
+            />
 
-                    <div class="form-group mb-3">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email"
-                            [(ngModel)]="customer!.email" />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="mobile">Mobile</label>
-                        <input type="tel" class="form-control" id="mobile" name="mobile"
-                            [(ngModel)]="customer!.mobile" />
-                    </div>
-
-                </form>
+            <div
+              *ngIf="
+                customerForm.controls['username']?.invalid &&
+                customerForm.controls['username']?.touched
+              "
+            >
+              <span
+                *ngIf="customerForm.controls['username'].errors?.['required']"
+                class="mt-4 text-sm text-danger"
+                >Username is required.</span
+              >
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateCustomer()">Update</button>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              [(ngModel)]="customer!.email"
+              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
+              required
+            />
+
+            <div
+              *ngIf="
+                customerForm.controls['email']?.invalid &&
+                customerForm.controls['email']?.touched
+              "
+            >
+              <span
+                *ngIf="customerForm.controls['email'].errors?.['required']"
+                class="mt-4 text-sm text-danger"
+                >Email is required.</span
+              >
+              <span
+                *ngIf="customerForm.controls['email'].errors?.['pattern']"
+                class="text-sm text-danger"
+                >Invalid email</span
+              >
             </div>
-        </div>
+          </div>
+
+          <div class="form-group">
+            <label for="mobile">Mobile</label>
+            <input
+              type="tel"
+              class="form-control"
+              id="mobile"
+              name="mobile"
+              [(ngModel)]="customer!.mobile"
+              pattern="^\d{10}$"
+              required
+            />
+
+            <div
+              *ngIf="
+                customerForm.controls['mobile']?.invalid &&
+                customerForm.controls['mobile']?.touched
+              "
+            >
+              <span
+                *ngIf="customerForm.controls['mobile'].errors?.['required']"
+                class="mt-4 text-sm text-danger"
+                >Mobile is required.</span
+              >
+              <span
+                *ngIf="customerForm.controls['mobile'].errors?.['pattern']"
+                class="text-sm text-danger"
+                >Invalid mobile</span
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="updateCustomer()"
+        >
+          Update
+        </button>
+      </div>
     </div>
+  </div>
 </div>

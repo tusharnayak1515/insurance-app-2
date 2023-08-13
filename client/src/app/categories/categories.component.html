@@ -13,77 +13,173 @@
     </thead>
     <tbody>
       <tr *ngFor="let category of categories; let i = index">
-        <td>{{i+1}}</td>
-        <td>{{category!.name | titlecase}}</td>
-        <td>{{category!.createdAt | date: 'medium'}}</td>
-        <td>{{category!.updatedAt | date: 'medium'}}</td>
+        <td>{{ i + 1 }}</td>
+        <td>{{ category!.name | titlecase }}</td>
+        <td>{{ category!.createdAt | date : "medium" }}</td>
+        <td>{{ category!.updatedAt | date : "medium" }}</td>
         <td>
-          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateCategoryModal" (click)="onEdit(category)">update</button>
+          <button
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#updateCategoryModal"
+            (click)="onEdit(category)"
+          >
+            update
+          </button>
         </td>
         <td>
-          <button class="btn btn-danger" (click)="deleteCategory(category!.categoryId)">Delete</button>
+          <button
+            class="btn btn-danger"
+            (click)="deleteCategory(category!.categoryId)"
+          >
+            Delete
+          </button>
         </td>
       </tr>
     </tbody>
   </table>
 
   <div id="add-category-button">
-    <button data-bs-toggle="modal" data-bs-target="#addCategoryModal" class="btn btn-primary mt-3">Add Category</button>
-
+    <button
+      data-bs-toggle="modal"
+      data-bs-target="#addCategoryModal"
+      class="btn btn-primary mt-3"
+    >
+      Add Category
+    </button>
   </div>
 </div>
 
 <!-- Add Category -->
-<div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addCategoryModalLabel"
-  aria-hidden="true">
+<div
+  class="modal fade"
+  id="addCategoryModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="addCategoryModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="addCategoryModalLabel">Add Category</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+        <button
+          type="button"
+          class="close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form #addCategoryForm="ngForm">
           <div class="form-group">
             <label for="name">Category Name</label>
-            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="policyCategory!.name" />
-          </div>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              [(ngModel)]="policyCategory!.name"
+              required
+            />
 
+            <div
+              *ngIf="
+                addCategoryForm.controls['name']?.invalid &&
+                addCategoryForm.controls['name']?.touched
+              "
+            >
+              <span
+                *ngIf="addCategoryForm.controls['name'].errors?.['required']"
+                class="mt-4 text-sm text-danger"
+                >Category name is required.</span
+              >
+            </div>
+          </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="addCategory()">Add</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="addCategory()"
+        >
+          Add
+        </button>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Update Category -->
-<div class="modal fade" id="updateCategoryModal" tabindex="-1" role="dialog" aria-labelledby="updateCategoryModalLabel"
-  aria-hidden="true">
+<div
+  class="modal fade"
+  id="updateCategoryModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="updateCategoryModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="updateCategoryModalLabel">Update Category</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title" id="updateCategoryModalLabel">
+          Update Category
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form *ngIf="category !== null">
+        <form *ngIf="category !== null" #updateCategory="ngForm">
           <div class="form-group">
             <label for="name">Category Name</label>
-            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="category!.name" />
-          </div>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              [(ngModel)]="category!.name"
+            />
 
+            <div
+              *ngIf="
+                updateCategory.controls['name']?.invalid &&
+                updateCategory.controls['name']?.touched
+              "
+            >
+              <span
+                *ngIf="updateCategory.controls['name'].errors?.['required']"
+                class="mt-4 text-sm text-danger"
+                >Category name is required.</span
+              >
+            </div>
+          </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateCategory()">Update</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="updateCategory()"
+        >
+          Update
+        </button>
       </div>
     </div>
   </div>

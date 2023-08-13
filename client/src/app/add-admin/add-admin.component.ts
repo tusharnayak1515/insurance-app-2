@@ -11,6 +11,7 @@ export class AddAdminComponent implements OnInit {
   email: string = '';
   mobile : string = '';
   password : string = '';
+  error : string = '';
 
   constructor(private adminService: AdminService) { }
 
@@ -19,26 +20,34 @@ export class AddAdminComponent implements OnInit {
   }
 
   addAdmin() {
-    const adminData = {
-      username: this.username,
-      email: this.email,
-      password : this.password,
-      mobile:this.mobile
-    };
-
-    this.adminService.addAdmin(adminData).subscribe(
-      (response:any) => {
-        if(response.success) {
-          this.username = '';
-          this.email = '';
-          this.password = '';
-          this.mobile = '';
+    const passwordRegex =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/;
+    if(!passwordRegex.test(this.password)) {
+      this.error = "Enter a strong password";
+    }
+    else {
+      const adminData = {
+        username: this.username,
+        email: this.email,
+        password : this.password,
+        mobile:this.mobile
+      };
+  
+      this.adminService.addAdmin(adminData).subscribe(
+        (response:any) => {
+          if(response.success) {
+            this.username = '';
+            this.email = '';
+            this.password = '';
+            this.mobile = '';
+            this.error = '';
+          }
+        },
+        (error:any) => {
+          console.error('Error adding admin', error);
         }
-      },
-      (error:any) => {
-        console.error('Error adding admin', error);
-      }
-    );
+      );
+    }
+
   }
 }
 

@@ -59,6 +59,8 @@ export class ViewCustomersComponent implements OnInit {
       },
       (error:any)=> {
         console.log(error);
+        this.getAllCustomers();
+        alert('Update failed');
       }
     );
   }

@@ -13,52 +13,101 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let question of questions; let i = index;">
-          <td>{{i+1}}</td>
-          <td>{{question!.user!.username}}</td>
-          <td>{{question!.questionText}}</td>
-          <td>{{question!.answerText || 'Not Answered'}}</td>
-          <td>{{question!.createdAt | date}}</td>
+        <tr *ngFor="let question of questions; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ question!.user!.username }}</td>
+          <td>{{ question!.questionText }}</td>
+          <td>{{ question!.answerText || "Not Answered" }}</td>
+          <td>{{ question!.createdAt | date }}</td>
           <td>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#answerQuestionModal"
-              (click)="onEdit(question)">Answer</button>
+            <button
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#answerQuestionModal"
+              (click)="onEdit(question)"
+            >
+              Answer
+            </button>
           </td>
         </tr>
-
       </tbody>
     </table>
   </div>
 </div>
 
 <!-- Answer question modal -->
-<div class="modal fade" id="answerQuestionModal" tabindex="-1" role="dialog" aria-labelledby="answerQuestionModalLabel"
-  aria-hidden="true">
+<div
+  class="modal fade"
+  id="answerQuestionModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="answerQuestionModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="answerQuestionModalLabel">Update User</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title" id="answerQuestionModalLabel">
+          Answer Question
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form *ngIf="question !== null">
+        <form *ngIf="question !== null" #answerQuestionForm="ngForm">
           <div class="form-group mb-3">
             <label for="question" class="form-label">Question</label>
-            <textarea name="question" id="question" class="form-control"
-              [defaultValue]="question!.questionText" disabled></textarea>
+            <textarea
+              name="question"
+              id="question"
+              class="form-control"
+              [defaultValue]="question!.questionText"
+              disabled
+            ></textarea>
           </div>
 
           <div class="form-group mb-3">
             <label for="answerText" class="form-label">Answer</label>
-            <input type="text" class="form-control" id="answerText" name="answerText"
-              [(ngModel)]="question!.answerText" />
+            <input
+              type="text"
+              class="form-control"
+              id="answerText"
+              name="answerText"
+              [(ngModel)]="question!.answerText"
+            />
+            <div
+              *ngIf="
+                answerQuestionForm.controls['answerText']?.invalid &&
+                answerQuestionForm.controls['answerText']?.touched
+              "
+            >
+              <span
+                *ngIf="answerQuestionForm.controls['answerText'].errors?.['required']"
+                class="mt-4 text-sm text-danger"
+                >Answer is required.</span
+              >
+            </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="answerQuestion()">Update</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="answerQuestion()"
+        >
+          Update
+        </button>
       </div>
     </div>
   </div>

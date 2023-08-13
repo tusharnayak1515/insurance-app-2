@@ -19,7 +19,7 @@ export class CustomerPoliciesComponent implements OnInit {
   }
 
   getAllCustomePolicies() {
-    this.customerPolicyService.viewMyPolicies().subscribe(
+    this.customerPolicyService.viewAllCustomerPolicies().subscribe(
       (response:any)=> {
         this.customerPolicies = response.customerPolicies;
       },
