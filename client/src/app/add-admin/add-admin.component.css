@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    Padding :0;
+
+}
+.container {
+    background-image: url(https://www.mtechzambia.com/wp-content/uploads/2022/05/18-4-1021x580.jpg);
+    background-size:cover;
+    background-repeat: no-repeat;
+  background-attachment: fixed; 
+    display: inline-block; 
+    margin: 0;
+    padding: 0;
+    overflow: hidden;  }
+h1 {
+    text-align: center;
+    margin: 20px 0;
+    color:#fffefe;
+    font-display: bold;
+}
+
+form {
+    width: 300px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"] {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color:#585858;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+          

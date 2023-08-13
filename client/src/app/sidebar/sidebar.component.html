@@ -1,0 +1,99 @@
+<nav id="sidebar">
+  <div
+    class="mb-3 d-flex flex-column justify-content-start align-items-center gap-3 dp-container"
+  >
+    <img
+      src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
+      alt="DP"
+      class="dp"
+    />
+    <p class="h4">{{username}}</p>
+  </div>
+
+  <ul class="list-unstyled navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" aria-current="page" [routerLink]="isAdmin ? '/admin/dashboard' : '/customer/dashboard'" routerLinkActive="active"
+        ><i class="bi bi-speedometer" style="margin-right: 0.25rem"></i>
+        <span class="linkText">Dashboard</span></a
+      >
+    </li>
+    <li class="nav-item" *ngIf="isAdmin">
+      <a class="nav-link" aria-current="page" routerLink="/admin/view-customers" routerLinkActive="active"
+        ><i class="bi bi-people-fill" style="margin-right: 0.25rem"></i>
+        <span class="linkText">Customers</span></a
+      >
+    </li>
+    <li class="nav-item" *ngIf="isAdmin">
+      <a class="nav-link" aria-current="page" routerLink="/admin/categories" routerLinkActive="active"
+        ><i class="bi bi-journal-text" style="margin-right: 0.25rem"></i>
+        <span class="linkText">Category</span></a
+      >
+    </li>
+    <li class="nav-item" *ngIf="isAdmin">
+      <a class="nav-link" aria-current="page" routerLink="/admin/policies" routerLinkActive="active"
+        ><i class="bi bi-card-list" style="margin-right: 0.25rem"></i>
+        <span class="linkText">Policy</span></a
+      >
+    </li>
+    <li class="nav-item" *ngIf="isAdmin">
+      <a class="nav-link" aria-current="page" routerLink="/admin/customer-policies" routerLinkActive="active"
+        ><i class="bi bi-card-list" style="margin-right: 0.25rem"></i>
+        <span class="linkText">Customer Policies</span></a
+      >
+    </li>
+    <li class="nav-item" *ngIf="isAdmin">
+      <a class="nav-link" aria-current="page" routerLink="/admin/questions" routerLinkActive="active"
+        ><i
+          class="bi bi-question-circle-fill"
+          style="margin-right: 0.25rem"
+        ></i>
+        <span class="linkText">Questions</span></a
+      >
+    </li>
+    <li class="nav-item" *ngIf="isAdmin">
+      <a class="nav-link" aria-current="page" routerLink="/admin/add-admin" routerLinkActive="active"
+        ><i class="bi bi-person-fill-add" style="margin-right: 0.25rem"></i>
+        <span class="linkText">Add admin</span></a
+      >
+    </li>
+    <li class="nav-item" *ngIf="isAdmin">
+      <a class="nav-link" aria-current="page" routerLink="/admin/profile" routerLinkActive="active"
+        ><i class="bi bi-person-fill" style="margin-right: 0.25rem"></i>
+        <span class="linkText">Profile</span></a
+      >
+    </li>
+    <li class="nav-item" *ngIf="!isAdmin">
+      <a class="nav-link" aria-current="page" routerLink="/customer/apply-policy" routerLinkActive="active"
+        ><i class="bi bi-people-fill" style="margin-right: 0.25rem"></i>
+        <span class="linkText">Apply Policy</span></a
+      >
+    </li>
+    <li class="nav-item" *ngIf="!isAdmin">
+      <a class="nav-link" aria-current="page" routerLink="/customer/policy-history" routerLinkActive="active"
+        ><i class="bi bi-journal-text" style="margin-right: 0.25rem"></i>
+        <span class="linkText">Policy History</span></a
+      >
+    </li>
+    <li class="nav-item" *ngIf="!isAdmin">
+      <a class="nav-link" aria-current="page" routerLink="/customer/ask-question" routerLinkActive="active"
+        ><i class="bi bi-card-list" style="margin-right: 0.25rem"></i>
+        <span class="linkText">Ask Question</span></a
+      >
+    </li>
+    <li class="nav-item" *ngIf="!isAdmin">
+      <a class="nav-link" aria-current="page" routerLink="/customer/question-history" routerLinkActive="active"
+        ><i
+          class="bi bi-question-circle-fill"
+          style="margin-right: 0.25rem"
+        ></i>
+        <span class="linkText">Question History</span></a
+      >
+    </li>
+    <li class="nav-item" *ngIf="!isAdmin">
+      <a class="nav-link" aria-current="page" routerLink="/customer/profile" routerLinkActive="active"
+        ><i class="bi bi-person-fill" style="margin-right: 0.25rem"></i>
+        <span class="linkText">Profile</span></a
+      >
+    </li>
+  </ul>
+</nav>

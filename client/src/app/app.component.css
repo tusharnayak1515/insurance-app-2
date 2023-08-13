@@ -1,0 +1,22 @@
+#mycontent {
+    position: absolute;
+    top: 0;
+    height: 100%;
+}
+
+.m-left {
+    left: 250px;
+    width: calc(100% - 250px);
+}
+
+.m-left-none {
+    left: 0 !important;
+    width: 100% !important;
+}
+
+@media only screen and (max-width: 720px) {
+    .m-left {
+        left: 0;
+        width: 100%;
+    }
+}

@@ -1,0 +1,39 @@
+.myContainer {
+    width: 800px;
+    margin: 0 auto;
+}
+
+.myContainer table td i {
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 720px) {
+    .myContainer {
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 721px) and (max-width: 800px) {
+    .myContainer {
+        width: 400px;
+    }
+}
+
+@media only screen and (min-width: 801px) and (max-width: 900px) {
+    .myContainer {
+        width: 500px;
+    }
+}
+
+@media only screen and (min-width: 901px) and (max-width: 1100px) {
+    .myContainer {
+        width: 600px;
+    }
+}
+
+@media only screen and (min-width: 1001px) and (max-width: 1200px) {
+    .myContainer {
+        width: 700px;
+    }
+}

@@ -1,0 +1,163 @@
+<div id="policies-wrapper">
+  <div id="container">
+    <h1>Policy Information</h1>
+    <div id="table-container" class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>SL No</th>
+            <th>Policy Name</th>
+            <th>Category</th>
+            <th>Sum Assured</th>
+            <th>Premium</th>
+            <th>Tenure</th>
+            <th>Creation Date</th>
+            <th>Updation Date</th>
+            <th>update</th>
+            <th>delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let policy of policies; let i = index;">
+            <td>{{i+1}}</td>
+            <td>{{policy!.policyName}}</td>
+            <td>{{policy!.policycategory!.name}}</td>
+            <td>{{policy!.sumAssured}}</td>
+            <td>{{policy!.premiumAmount}}</td>
+            <td>{{policy!.tenure}}</td>
+            <td>{{policy.createdAt | date}}</td>
+            <td>{{policy.updatedAt | date}}</td>
+            <td class="update-buttons">
+              <button data-bs-toggle="modal" data-bs-target="#updatePolicyModal"
+                (click)="onEdit(policy)">update</button>
+            </td>
+            <td class="delete-buttons">
+              <button (click)="deletePolicy(policy!.policyId)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <br>
+    <div class="add-policy-button">
+      <button data-bs-toggle="modal" data-bs-target="#addPolicyModal">Add Policy</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Policy -->
+<div class="modal fade" id="addPolicyModal" tabindex="-1" role="dialog" aria-labelledby="addPolicyModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addPolicyModalLabel">Add Policy</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group mb-2">
+            <label for="policyName" class="form-label">Policy Name</label>
+            <input type="text" class="form-control" id="policyName" name="policyName" [(ngModel)]="policyName" />
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="policydesc" class="form-label">Policy Desciption</label>
+            <textarea class="form-control" name="policydesc" id="policydesc" [(ngModel)]="policydesc"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="categoryId" class="form-label">Policy Category</label>
+            <select name="categoryId" id="categoryId" class="form-control" [(ngModel)]="categoryId">
+              <option *ngFor="let category of categories; let i = index;" value={{category!.categoryId}}>
+                {{category!.name}}</option>
+            </select>
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="sumAssured" class="form-label">Sum Assured</label>
+            <input type="number" class="form-control" id="sumAssured" name="sumAssured" [(ngModel)]="sumAssured" />
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="premiumAmount" class="form-label">Premium Amount</label>
+            <input type="number" class="form-control" id="premiumAmount" name="premiumAmount"
+              [(ngModel)]="premiumAmount" />
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="tenure" class="form-label">Tenure</label>
+            <input type="number" class="form-control" id="tenure" name="tenure" [(ngModel)]="tenure" />
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="addPolicy()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Update Policy -->
+<div class="modal fade" id="updatePolicyModal" tabindex="-1" role="dialog" aria-labelledby="updatePolicyModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updatePolicyModalLabel">Update Policy</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form *ngIf="policy !== null">
+          <div class="form-group mb-2">
+            <label for="policyName" class="form-label">Policy Name</label>
+            <input type="text" class="form-control" id="policyName" name="policyName"
+              [(ngModel)]="policy!.policyName" />
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="policydesc" class="form-label">Policy Desciption</label>
+            <textarea class="form-control" name="policydesc" id="policydesc"
+              [(ngModel)]="policy!.policydesc"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="categoryId" class="form-label">Policy Category</label>
+            <select name="categoryId" id="categoryId" class="form-control" [(ngModel)]="policy!.categoryId">
+              <option *ngFor="let category of categories; let i = index;" value={{category!.categoryId}}>
+                {{category!.name}}</option>
+            </select>
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="sumAssured" class="form-label">Sum Assured</label>
+            <input type="number" class="form-control" id="sumAssured" name="sumAssured"
+              [(ngModel)]="policy!.sumAssured" />
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="premiumAmount" class="form-label">Premium Amount</label>
+            <input type="number" class="form-control" id="premiumAmount" name="premiumAmount"
+              [(ngModel)]="policy!.premiumAmount" />
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="tenure" class="form-label">Tenure</label>
+            <input type="number" class="form-control" id="tenure" name="tenure" [(ngModel)]="policy!.tenure" />
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updatePolicy()">Update</button>
+      </div>
+    </div>
+  </div>
+</div>

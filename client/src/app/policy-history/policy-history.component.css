@@ -1,0 +1,49 @@
+.container {
+    min-height: calc(100vh - 80px);
+    padding: 2rem;
+    background-image: url(https://img.freepik.com/premium-photo/insurance-concept-virtual-blue-screen-with-icons_29488-5987.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+}
+
+.table-container {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto; 
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+
+th {
+    background-color: #B1B1B1;
+}
+
+tr:nth-child(even) {
+    background-color: #f4f4f4;
+}
+@media (max-width: 768px) {
+    .table-container {
+        width: 90%;
+    }
+}
+@media (max-width: 576px) {
+    .table-container {
+        width: 100%;
+        padding: 10px;
+    }
+}
