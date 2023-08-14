@@ -25,7 +25,6 @@ export class PolicyService {
   }
 
   updatePolicy(policy: any): Observable<any> {
-    console.log(policy);
     const url = `${this.apiUrl}/api/policy/${policy.policyId}`;
     return this.http.put(url, policy);
   }

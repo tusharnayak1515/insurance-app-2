@@ -20,7 +20,7 @@ export class AdminService {
   }
 
   public deleteCustomer = (customerId: number): Observable<any> => {
-    return this.http.delete<any>(`${this.BACKEND_URL}/api/admin/delete-customer/${customerId}`);
+    return this.http.delete<any>(`${this.BACKEND_URL}/api/admin/delete/${customerId}`);
   };
 
   public getAllCustomers = (): Observable<User[]> => {

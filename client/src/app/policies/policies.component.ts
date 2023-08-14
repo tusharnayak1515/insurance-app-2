@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { PolicyService } from '../services/policy/policy.service'; // Import your PolicyService here
 import { CategoryService } from '../services/category/category.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-policies',
@@ -17,9 +18,10 @@ export class PoliciesComponent implements OnInit {
   sumAssured: number = 0;
   premiumAmount: number = 0;
   tenure: number = 0;
-  policy:any = null;
+  policy: any = null;
+  showDescription:boolean = false;
 
-  constructor(private policyService: PolicyService, private categoryService: CategoryService) { }
+  constructor(private policyService: PolicyService, private categoryService: CategoryService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.viewAllPolicies();
@@ -36,15 +38,17 @@ export class PoliciesComponent implements OnInit {
     );
   }
 
-  deletePolicy(policyId:number) {
+  deletePolicy(policyId: number) {
     this.policyService.deletePolicy(policyId).subscribe(
       (response: any) => {
         if (response?.success) {
           this.policies = response?.list;
+          this.toastr.success("Policy deleted successfully");
         }
       },
       (error: any) => {
         console.log(error);
+        this.toastr.error("Cannot delete: Customers have applied to it");
       },
     );
   }
@@ -81,7 +85,7 @@ export class PoliciesComponent implements OnInit {
     );
   }
 
-  onEdit(policy:any) {
+  onEdit(policy: any) {
     const mypolicy = {
       policyId: policy.policyId,
       policyName: policy.policyName,
@@ -96,13 +100,16 @@ export class PoliciesComponent implements OnInit {
 
   updatePolicy() {
     this.policyService.updatePolicy(this.policy).subscribe(
-      (response:any)=> {
-        if(response.success) {
+      (response: any) => {
+        console.log("response: ", response);
+        if (response.success) {
           this.policies = response?.list;
+          this.toastr.success("Policy updated successfully");
         }
       },
-      (error:any)=> {
+      (error: any) => {
         console.log(error);
+        this.toastr.error("Cannot update: Customers have applied to it");
       }
     );
   }

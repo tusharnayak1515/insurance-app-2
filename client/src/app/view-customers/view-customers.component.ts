@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../services/admin/admin.service';
-import { NavigationStart, Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import User from '../models/User';
 import { UserService } from '../services/user/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-view-customers',
@@ -19,8 +18,8 @@ export class ViewCustomersComponent implements OnInit {
   constructor(
     private adminService: AdminService,
     private userService: UserService,
-    private router: Router,
-    private cookieService: CookieService) {
+    private toastr: ToastrService
+    ) {
   }
 
   ngOnInit(): void {
@@ -67,6 +66,17 @@ export class ViewCustomersComponent implements OnInit {
 
   deleteCustomer(customerId: number) {
     console.log(customerId);
-    this.customers = this.customers.filter(customer => customer.userId !== customerId);
+    this.adminService.deleteCustomer(customerId).subscribe(
+      (response:any)=> {
+        if(response.success) {
+          this.customers = response?.users;
+        }
+      },
+      (error:any)=> {
+        console.log(error);
+        this.toastr.error("Deletion failed: This customer has applied to a policy");
+        this.getAllCustomers();
+      }
+    );
   }
 }

@@ -9,9 +9,6 @@
     background-attachment:fixed;
   }
   #container {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
     padding: 20px;
     background-color: #fff;
     border-radius: 5px;
