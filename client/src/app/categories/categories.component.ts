@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../services/category/category.service';
 import Policycategory from '../models/Policycategory';
+import { UserService } from '../services/user/user.service';
 
 @Component({
   selector: 'app-categories',
@@ -9,66 +10,78 @@ import Policycategory from '../models/Policycategory';
 })
 export class CategoriesComponent implements OnInit {
 
-  categories:any[] = [];
-  policyCategory: Policycategory = new Policycategory(null,"");
-  category:Policycategory | null = null;
+  categories: any[] = [];
+  policyCategory: Policycategory = new Policycategory(null, "");
+  category: Policycategory | null = null;
+  isAdmin: boolean = false;
 
-  constructor(private categoryService:CategoryService) {
+  constructor(private categoryService: CategoryService, private userService: UserService) {
 
   }
 
   ngOnInit(): void {
-  this.categoryService.viewAllCategories().subscribe(
-    (response:any)=> {
-      if(response?.success) {
-        this.categories = response?.list;
+    this.categoryService.viewAllCategories().subscribe(
+      (response: any) => {
+        if (response?.success) {
+          this.categories = response?.list;
+        }
+      },
+      (error: any) => {
+        console.log(error);
       }
-    },
-    (error:any)=> {
-      console.log(error);
-    }
-  )
+    );
+
+    this.userService.getUser().subscribe((value:any)=> {
+      if(value) {
+        if(value?.role === "admin") {
+          this.isAdmin = true;
+        }
+        else {
+          this.isAdmin = false;
+        }
+      }
+    });
   }
 
   addCategory() {
     this.categoryService.addCategory(this.policyCategory).subscribe(
-      (response:any)=> {
-        if(response?.success) {
+      (response: any) => {
+        if (response?.success) {
           this.categories = response?.list;
-          this.policyCategory = new Policycategory(null,"");
+          this.policyCategory = new Policycategory(null, "");
         }
       },
-      (error: any)=> {
+      (error: any) => {
         console.log(error);
       }
     );
   }
 
-  onEdit(category:any) {
+  onEdit(category: any) {
     this.category = category;
   }
 
   updateCategory() {
     this.categoryService.updateCategory(this.category).subscribe(
-      (response:any)=> {
-        if(response?.success) {
+      (response: any) => {
+        if (response?.success) {
           this.categories = response?.list;
         }
       },
-      (error: any)=> {
+      (error: any) => {
         console.log(error);
       }
     );
   }
 
-  deleteCategory(categoryId:number) {
+  deleteCategory(categoryId: number) {
     this.categoryService.deleteCategory(categoryId).subscribe(
-      (response:any)=> {
-        if(response?.success) {
+      (response: any) => {
+        if (response?.success) {
           this.categories = response?.list;
         }
       },
-      (error: any)=> {
+      (error: any) => {
         console.log(error);
       }
     );

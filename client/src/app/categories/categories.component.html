@@ -1,49 +1,52 @@
 <div id="container">
   <h1>Insurance Categories</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>Serial No</th>
-        <th>Category Name</th>
-        <th>Creation Date</th>
-        <th>Updation Date</th>
-        <th>update</th>
-        <th>delete</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let category of categories; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{ category!.name | titlecase }}</td>
-        <td>{{ category!.createdAt | date : "medium" }}</td>
-        <td>{{ category!.updatedAt | date : "medium" }}</td>
-        <td>
-          <button
-            class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#updateCategoryModal"
-            (click)="onEdit(category)"
-          >
-            update
-          </button>
-        </td>
-        <td>
-          <button
-            class="btn btn-danger"
-            (click)="deleteCategory(category!.categoryId)"
-          >
-            Delete
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">SL No</th>
+          <th scope="col">Category Name</th>
+          <th scope="col">Creation Date</th>
+          <th scope="col">Updation Date</th>
+          <th scope="col" *ngIf="isAdmin">update</th>
+          <th scope="col" *ngIf="isAdmin">delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of categories; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ category!.name | titlecase }}</td>
+          <td>{{ category!.createdAt | date }}</td>
+          <td>{{ category!.updatedAt | date }}</td>
+          <td *ngIf="isAdmin">
+            <button
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#updateCategoryModal"
+              (click)="onEdit(category)"
+            >
+              update
+            </button>
+          </td>
+          <td *ngIf="isAdmin">
+            <button
+              class="btn btn-danger"
+              (click)="deleteCategory(category!.categoryId)"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <div id="add-category-button">
     <button
       data-bs-toggle="modal"
       data-bs-target="#addCategoryModal"
       class="btn btn-primary mt-3"
+      *ngIf="isAdmin"
     >
       Add Category
     </button>
