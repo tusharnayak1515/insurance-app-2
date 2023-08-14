@@ -207,6 +207,7 @@ public class CustomerController {
             userResponse.setEmail(user.getEmail());
             userResponse.setMobile(user.getMobile());
             userResponse.setRole(user.getRole());
+            userResponse.setAddress(user.getAddress());
             userResponse.setCreatedAt(user.getCreatedAt());
             userResponse.setUpdatedAt(user.getUpdatedAt());
 

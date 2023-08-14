@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
       (response: any) => {
         if (response?.success) {
           this.setAuthCookie(response?.token);
+          console.log(response?.user);
           localStorage.setItem("user_details", JSON.stringify(response?.user));
           this.userService.setUser(response?.user);
           this.userService.setLoggedIn(true);

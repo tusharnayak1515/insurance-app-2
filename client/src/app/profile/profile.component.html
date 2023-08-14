@@ -1,1 +1,282 @@
-<p>profile works!</p>
+<div class="container py-5">
+  <div class="card">
+    <div class="card-body">
+      <h1 class="card-title">My Profile</h1>
+      <div class="mb-3">
+        <label for="name" class="form-label">Name:</label>
+        <p id="name" class="form-control-static">{{ user?.username }}</p>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email:</label>
+        <p id="email" class="form-control-static">{{ user?.email }}</p>
+      </div>
+      <div class="mb-3">
+        <label for="mobile" class="form-label">Mobile:</label>
+        <p id="mobile" class="form-control-static">{{ user?.mobile }}</p>
+      </div>
+      <div class="mb-3">
+        <label for="address" class="form-label">Address:</label>
+        <p id="address" class="form-control-static">{{ user?.address }}</p>
+      </div>
+
+      <button
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#updateModal"
+      >
+        Update User Details
+      </button>
+      <button
+        class="btn btn-primary mx-3"
+        data-bs-toggle="modal"
+        data-bs-target="#changePasswordModal"
+      >
+        Change Password
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Update Modal -->
+<div
+  class="modal fade"
+  id="updateModal"
+  tabindex="-1"
+  aria-labelledby="updateModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateModalLabel">Update Profile</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form #updateProfileForm="ngForm">
+          <div class="mb-3">
+            <label for="updatedName" class="form-label">Username:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="updatedName"
+              name="updatedName"
+              [(ngModel)]="updatedName"
+              required
+            />
+            <div
+              *ngIf="
+                updateProfileForm.controls['updatedName']?.invalid &&
+                updateProfileForm.controls['updatedName']?.touched
+              "
+            >
+              <span
+                *ngIf="updateProfileForm.controls['updatedName'].errors?.['required']"
+                class="mt-4 text-sm text-danger"
+                >Username is required.</span
+              >
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="updatedEmail" class="form-label">Email:</label>
+            <input
+              type="email"
+              class="form-control"
+              id="updatedEmail"
+              name="updatedEmail"
+              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
+              [(ngModel)]="updatedEmail"
+              required
+            />
+            <div
+              *ngIf="
+                updateProfileForm.controls['updatedEmail']?.invalid &&
+                updateProfileForm.controls['updatedEmail']?.touched
+              "
+            >
+              <span
+                *ngIf="updateProfileForm.controls['updatedEmail'].errors?.['required']"
+                class="mt-4 text-sm text-danger"
+                >Email is required.</span
+              >
+              <span
+                *ngIf="updateProfileForm.controls['updatedEmail'].errors?.['pattern']"
+                class="text-sm text-danger"
+                >Invalid email</span
+              >
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="updatedMobile" class="form-label">Mobile:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="updatedMobile"
+              name="updatedMobile"
+              pattern="^\d{10}$"
+              [(ngModel)]="updatedMobile"
+              required
+            />
+            <div
+              *ngIf="
+                updateProfileForm.controls['updatedMobile']?.invalid &&
+                updateProfileForm.controls['updatedMobile']?.touched
+              "
+            >
+              <span
+                *ngIf="updateProfileForm.controls['updatedMobile'].errors?.['required']"
+                class="mt-4 text-sm text-danger"
+                >Mobile is required.</span
+              >
+              <span
+                *ngIf="updateProfileForm.controls['updatedMobile'].errors?.['pattern']"
+                class="text-sm text-danger"
+                >Invalid mobile</span
+              >
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="address" class="form-label">Address:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="updatedAddress"
+              name="updatedAddress"
+              [(ngModel)]="updatedAddress"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="updateProfile()"
+        >
+          Save changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Change password Modal -->
+<div
+  class="modal fade"
+  id="changePasswordModal"
+  tabindex="-1"
+  aria-labelledby="changePasswordModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="changePasswordModalLabel">
+          Change Password
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form #changePasswordForm="ngForm">
+          <div class="mb-3">
+            <label for="oldPassword" class="form-label">Old Password:</label>
+            <input
+              type="password"
+              class="form-control"
+              id="oldPassword"
+              name="oldPassword"
+              [(ngModel)]="oldPassword"
+              required
+            />
+            <div
+              *ngIf="
+                changePasswordForm.controls['oldPassword']?.invalid &&
+                changePasswordForm.controls['oldPassword']?.touched
+              "
+            >
+              <span
+                *ngIf="changePasswordForm.controls['oldPassword'].errors?.['required']"
+                class="mt-4 text-sm text-danger"
+                >Old Password is required.</span
+              >
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="newPassword" class="form-label">New Password:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="newPassword"
+              name="newPassword"
+              [(ngModel)]="newPassword"
+              required
+            />
+            <div
+              *ngIf="
+                changePasswordForm.controls['newPassword']?.invalid &&
+                changePasswordForm.controls['newPassword']?.touched
+              "
+            >
+              <span
+                *ngIf="changePasswordForm.controls['newPassword'].errors?.['required']"
+                class="mt-4 text-sm text-danger"
+                >New Password is required.</span
+              >
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="confirmPassword" class="form-label"
+              >Confirm Password:</label
+            >
+            <input
+              type="password"
+              class="form-control"
+              id="confirmPassword"
+              name="confirmPassword"
+              [(ngModel)]="confirmPassword"
+              required
+            />
+            <div
+              *ngIf="
+                changePasswordForm.controls['confirmPassword']?.invalid &&
+                changePasswordForm.controls['confirmPassword']?.touched
+              "
+            >
+              <span
+                *ngIf="changePasswordForm.controls['confirmPassword'].errors?.['required']"
+                class="mt-4 text-sm text-danger"
+                >Confirm Password is required.</span
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="changePassword()"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -22,17 +22,23 @@ export class CustomerRegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    this.userService.customerRegister(this.user).subscribe(
-      (response:any)=> {
-        if(response.success) {
-          this.toastr.success('Registration successfull');
-          this.router.navigate(['customer-login']);
+    const passwordRegex =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/;
+    if(!passwordRegex.test(this.user.password)) {
+      this.toastr.warning("Enter a valid password");
+    }
+    else {
+      this.userService.customerRegister(this.user).subscribe(
+        (response:any)=> {
+          if(response.success) {
+            this.toastr.success('Registration successfull');
+            this.router.navigate(['customer-login']);
+          }
+        },
+        (error:any)=> {
+          this.error = error.error;
         }
-      },
-      (error:any)=> {
-        this.error = error.error;
-      }
-    )
+      )
+    }
   }
 
 }

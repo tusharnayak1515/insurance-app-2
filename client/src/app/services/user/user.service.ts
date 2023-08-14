@@ -11,7 +11,7 @@ export class UserService {
   public isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<any>(
     localStorage.getItem('user_details') ? true : false
   );
-  public user: BehaviorSubject<User | null> = new BehaviorSubject<any>(
+  public user: BehaviorSubject<User | any> = new BehaviorSubject<any>(
     localStorage.getItem('user_details') ? JSON.parse(localStorage.getItem('user_details')!) : null
   );
   public BACKEND_URL: string = 'http://localhost:8080';
@@ -39,7 +39,7 @@ export class UserService {
   };
 
   // SET THE USER
-  public setUser(user: User | null): void {
+  public setUser(user: User | any): void {
     this.user.next(user);
   }
 
