@@ -59,4 +59,15 @@ class PolicyAppApplicationTests {
 		Assertions.assertNotNull(user);
 		Assertions.assertTrue(user.getRole().equals("admin"));
 	}
+	
+	@Test
+	@Transactional
+	public void updateProfile() throws Exception {
+		String email = "test1@gmail.com";
+		User user = this.userRepo.findByEmail(email);
+		Assertions.assertNotNull(user);
+		user.setUsername("John Doe");
+		user = this.userRepo.save(user);
+		Assertions.assertTrue(user.getUsername().equals("John Doe"));
+	}
 }

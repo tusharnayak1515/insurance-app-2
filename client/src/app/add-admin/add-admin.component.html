@@ -1,108 +1,61 @@
 <div class="container">
   <h1>Admin Registration</h1>
   <form (ngSubmit)="addAdmin()" #addAdminForm="ngForm">
-    <label for="username">User Name:</label>
-    <input
-      type="text"
-      id="username"
-      name="username"
-      [(ngModel)]="username"
-      required
-    /><br /><br />
+    <div class="form-group">
+      <label for="username">User name</label>
+      <input type="text" name="username" id="username" class="form-control" [(ngModel)]="username" required />
 
-    <div
-      *ngIf="
+      <div *ngIf="
         addAdminForm.controls['username']?.invalid &&
         addAdminForm.controls['username']?.touched
-      "
-    >
-      <span
-        *ngIf="addAdminForm.controls['username'].errors?.['required']"
-        class="my-2 text-sm text-danger"
-        >Username is required.</span
-      >
+        ">
+        <span *ngIf="addAdminForm.controls['username'].errors?.['required']" class="mt-4 text-sm text-danger">Username is
+          required.</span>
+      </div>
     </div>
 
-    <label for="email">Email:</label>
-    <input
-      type="email"
-      id="email"
-      name="email"
-      [(ngModel)]="email"
-      pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
-      required
-    /><br /><br />
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" required name="email" id="email" class="form-control" [(ngModel)]="email"
+        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" required />
 
-    <div
-      *ngIf="
+      <div *ngIf="
         addAdminForm.controls['email']?.invalid &&
         addAdminForm.controls['email']?.touched
-      "
-    >
-      <span
-        *ngIf="addAdminForm.controls['email'].errors?.['required']"
-        class="my-2 text-sm text-danger"
-        >Email is required.</span
-      >
-      <span
-        *ngIf="addAdminForm.controls['email'].errors?.['pattern']"
-        class="text-sm text-danger"
-        >Invalid email</span
-      >
+        ">
+        <span *ngIf="addAdminForm.controls['email'].errors?.['required']" class="mt-4 text-sm text-danger">Email is
+          required.</span>
+        <span *ngIf="addAdminForm.controls['email'].errors?.['pattern']" class="text-sm text-danger">Invalid email</span>
+      </div>
     </div>
+    
+    <div class="form-group">
+      <label for="mobile">Mobile Number</label>
+      <input type="tel" pattern="^\d{10}$" name="mobile" id="mobile" class="form-control" [(ngModel)]="mobile" required />
 
-    <label for="mobile">Mobile:</label>
-    <input
-      type="tel"
-      id="mobile"
-      name="mobile"
-      [(ngModel)]="mobile"
-      pattern="^\d{10}$"
-      required
-    /><br /><br />
-
-    <div
-      *ngIf="
+      <div *ngIf="
         addAdminForm.controls['mobile']?.invalid &&
         addAdminForm.controls['mobile']?.touched
-      "
-    >
-      <span
-        *ngIf="addAdminForm.controls['mobile'].errors?.['required']"
-        class="my-2 text-sm text-danger"
-        >Mobile is required.</span
-      >
-      <span
-        *ngIf="addAdminForm.controls['mobile'].errors?.['pattern']"
-        class="text-sm text-danger"
-        >Invalid mobile</span
-      >
+        ">
+        <span *ngIf="addAdminForm.controls['mobile'].errors?.['required']" class="mt-4 text-sm text-danger">Mobile is
+          required.</span>
+        <span *ngIf="addAdminForm.controls['mobile'].errors?.['pattern']" class="text-sm text-danger">Invalid mobile</span>
+      </div>
     </div>
 
-    <label for="password">Password:</label>
-    <input
-      type="password"
-      id="password"
-      name="password"
-      [(ngModel)]="password"
-      required
-    /><br /><br />
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" required name="password" id="password" class="form-control" [(ngModel)]="password" required />
 
-    <div
-      *ngIf="
+      <div *ngIf="
         addAdminForm.controls['password']?.invalid &&
         addAdminForm.controls['password']?.touched
-      "
-    >
-      <span
-        *ngIf="addAdminForm.controls['password'].errors?.['required']"
-        class="my-2 text-sm text-danger"
-        >Password is required.</span
-      >
+        ">
+        <span *ngIf="addAdminForm.controls['password'].errors?.['required']" class="mt-4 text-sm text-danger">Password is
+          required.</span>
+      </div>
     </div>
 
-    <!-- <p *ngIf="error !== ''" class="text-sm text-danger">{{error}}</p> -->
-
-    <button type="submit" class="btn btn-secondary w-100 py-2" [disabled]="addAdminForm.form.invalid">Add admin</button>
+    <button [disabled]="addAdminForm.form.invalid" type="submit" class="btn btn-secondary w-100">Register</button>
   </form>
 </div>

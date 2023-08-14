@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import RegisterUser from '../models/RegisterUser';
 import { UserService } from '../services/user/user.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-customer-register',
@@ -12,7 +13,7 @@ export class CustomerRegisterComponent implements OnInit {
   user:RegisterUser = new RegisterUser("","","","");
   error:string = "";
 
-  constructor(private userService:UserService, private router:Router) {
+  constructor(private userService:UserService, private router:Router, private toastr: ToastrService) {
 
   }
 
@@ -24,6 +25,7 @@ export class CustomerRegisterComponent implements OnInit {
     this.userService.customerRegister(this.user).subscribe(
       (response:any)=> {
         if(response.success) {
+          this.toastr.success('Registration successfull');
           this.router.navigate(['customer-login']);
         }
       },

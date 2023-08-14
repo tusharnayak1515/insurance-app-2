@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user/user.service';
 import { NavigationStart, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -9,12 +10,17 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  email:string = "";
-  password:string = "";
-  error:string = "";
-  showRegisterBtn:boolean = false;
+  email: string = "";
+  password: string = "";
+  error: string = "";
+  showRegisterBtn: boolean = false;
 
-  constructor(private userService:UserService, private router:Router, private cookieService:CookieService) {
+  constructor(
+      private userService: UserService, 
+      private router: Router, 
+      private cookieService: CookieService, 
+      private toastr: ToastrService
+    ) {
 
   }
 
@@ -27,18 +33,16 @@ export class LoginComponent implements OnInit {
     }
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
-        console.log("url: ", event.url);
-        console.log("res: ", event.url.includes('customer'));
         this.showRegisterBtn =
-        event.url.includes('customer') ? true : false;
+          event.url.includes('customer') ? true : false;
       }
     });
   }
 
   onSubmit() {
-    this.userService.userLogin(this.email,this.password).subscribe(
-      (response:any)=> {
-        if(response?.success) {
+    this.userService.userLogin(this.email, this.password).subscribe(
+      (response: any) => {
+        if (response?.success) {
           this.setAuthCookie(response?.token);
           localStorage.setItem("user_details", JSON.stringify(response?.user));
           this.userService.setUser(response?.user);
@@ -46,21 +50,22 @@ export class LoginComponent implements OnInit {
           this.error = "";
           this.email = "";
           this.password = "";
-          if(response?.user?.role === "admin") {
-            this.router.navigate(['admin','dashboard']);
+          if (response?.user?.role === "admin") {
+            this.router.navigate(['admin', 'dashboard']);
           }
           else {
-            this.router.navigate(['customer','dashboard']);
+            this.router.navigate(['customer', 'dashboard']);
           }
+          this.toastr.success('Welcome back');
         }
       },
-      (error:any)=> {
+      (error: any) => {
         this.error = error.error;
       }
     )
   }
 
-  private setAuthCookie(token:string): void {
+  private setAuthCookie(token: string): void {
     const expirationDays = 1;
     const expirationDate = new Date();
     expirationDate.setDate(expirationDate.getDate() + expirationDays);

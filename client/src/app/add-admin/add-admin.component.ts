@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../services/admin/admin.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-admin',
@@ -13,7 +15,7 @@ export class AddAdminComponent implements OnInit {
   password : string = '';
   error : string = '';
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     
@@ -40,9 +42,12 @@ export class AddAdminComponent implements OnInit {
             this.password = '';
             this.mobile = '';
             this.error = '';
+            this.router.navigate(['admin','dashboard']);
+            this.toastr.success("Admin created successfully");
           }
         },
         (error:any) => {
+          this.toastr.error(error.error || "Add admin failed");
           console.error('Error adding admin', error);
         }
       );
