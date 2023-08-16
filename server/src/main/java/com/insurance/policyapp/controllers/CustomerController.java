@@ -338,13 +338,6 @@ public class CustomerController {
                 return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(myResponse);
             }
 
-            if (request.getAddress().replaceAll("\\s+", "").length() == 0) {
-                JwtResponse myResponse = new JwtResponse();
-                myResponse.setSuccess(false);
-                myResponse.setError("Address cannot be empty");
-                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(myResponse);
-            }
-
             User u1 = this.customUserDetailsService.findOne(request.getEmail());
             if (u1 != null && user.getUserId() != u1.getUserId()) {
                 JwtResponse myresponse = new JwtResponse();

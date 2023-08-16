@@ -54,12 +54,12 @@ export class ViewCustomersComponent implements OnInit {
       (response:any)=> {
         if(response.success) {
           this.customers = response?.users;
+          this.toastr.success("Updation successfull");
         }
       },
       (error:any)=> {
         console.log(error);
         this.getAllCustomers();
-        alert('Update failed');
       }
     );
   }
@@ -70,6 +70,7 @@ export class ViewCustomersComponent implements OnInit {
       (response:any)=> {
         if(response.success) {
           this.customers = response?.users;
+          this.toastr.success("Deletion successfull");
         }
       },
       (error:any)=> {

@@ -345,13 +345,6 @@ public class AdminController {
                 return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(myResponse);
             }
 
-            if (u.getAddress() != null && u.getAddress().replaceAll("\\s+", "").length() == 0) {
-                JwtResponse myResponse = new JwtResponse();
-                myResponse.setSuccess(false);
-                myResponse.setError("Address cannot be empty");
-                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(myResponse);
-            }
-
             User u1 = userDetailsService.findById(u.getUserId());
             if (u1 == null) {
                 JwtResponse myResponse = new JwtResponse();

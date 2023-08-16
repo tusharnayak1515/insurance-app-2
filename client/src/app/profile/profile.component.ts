@@ -56,8 +56,8 @@ export class ProfileComponent implements OnInit {
           }
         },
         (error: any) => {
-          console.error(error);
-          this.toastr.error(error.error);
+          console.error(error.error);
+          this.toastr.error(error.error.error);
         }
       );
     }
