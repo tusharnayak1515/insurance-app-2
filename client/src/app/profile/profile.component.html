@@ -1,38 +1,43 @@
 <div class="container py-5">
   <div class="card">
     <div class="card-body">
-      <h1 class="card-title">My Profile</h1>
-      <div class="mb-3">
-        <label for="name" class="form-label">Name:</label>
-        <p id="name" class="form-control-static">{{ user?.username }}</p>
-      </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email:</label>
-        <p id="email" class="form-control-static">{{ user?.email }}</p>
-      </div>
-      <div class="mb-3">
-        <label for="mobile" class="form-label">Mobile:</label>
-        <p id="mobile" class="form-control-static">{{ user?.mobile }}</p>
-      </div>
-      <div class="mb-3">
-        <label for="address" class="form-label">Address:</label>
-        <p id="address" class="form-control-static">{{ user?.address }}</p>
-      </div>
+      <div class="row">
+        <div class="col-md-3 text-center">
+          <img src="assets/images/user_img.jpeg" alt="User Avatar" class="avatar" style="max-width: 300px; max-height: 350px;">
+        </div>
+        <div class="col-md-9">
+          <h1 class="card-title mb-4">My Profile</h1>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="name" class="form-label">Name:</label>
+                <p class="highlight">{{ user?.username }}</p>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <p class="highlight">{{ user?.email }}</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="mobile" class="form-label">Mobile:</label>
+                <p class="highlight">{{ user?.mobile }}</p>
+              </div>
+              <div class="mb-3">
+                <label for="address" class="form-label">Address:</label>
+                <p class="highlight">{{ user?.address || "Not updated" }}</p>
+              </div>
+            </div>
+          </div>
 
-      <button
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#updateModal"
-      >
-        Update User Details
-      </button>
-      <button
-        class="btn btn-primary mx-3"
-        data-bs-toggle="modal"
-        data-bs-target="#changePasswordModal"
-      >
-        Change Password
-      </button>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal">
+            Update User Details
+          </button>
+          <button class="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+            Change Password
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

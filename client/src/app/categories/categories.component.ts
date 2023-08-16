@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../services/category/category.service';
 import Policycategory from '../models/Policycategory';
 import { UserService } from '../services/user/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-categories',
@@ -15,7 +16,7 @@ export class CategoriesComponent implements OnInit {
   category: Policycategory | null = null;
   isAdmin: boolean = false;
 
-  constructor(private categoryService: CategoryService, private userService: UserService) {
+  constructor(private categoryService: CategoryService, private userService: UserService, private toastr: ToastrService) {
 
   }
 
@@ -69,6 +70,7 @@ export class CategoriesComponent implements OnInit {
         }
       },
       (error: any) => {
+        this.toastr.error("Updation failed: Policies exist with this category");
         console.log(error);
       }
     );
@@ -82,6 +84,7 @@ export class CategoriesComponent implements OnInit {
         }
       },
       (error: any) => {
+        this.toastr.error("Deletion failed: Policies exist with this category");
         console.log(error);
       }
     );
