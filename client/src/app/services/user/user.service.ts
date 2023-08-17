@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import RegisterUser from 'src/app/models/RegisterUser';
 import User from 'src/app/models/User';
@@ -8,15 +9,16 @@ import User from 'src/app/models/User';
   providedIn: 'root'
 })
 export class UserService {
+
+  constructor(private http: HttpClient, private cookieService:CookieService) { }
+
   public isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<any>(
-    localStorage.getItem('user_details') ? true : false
+    this.cookieService.get('authorization') ? true : false
   );
   public user: BehaviorSubject<User | any> = new BehaviorSubject<any>(
     localStorage.getItem('user_details') ? JSON.parse(localStorage.getItem('user_details')!) : null
   );
   public BACKEND_URL: string = 'http://localhost:8080';
-
-  constructor(private http: HttpClient) { }
 
   // FOR CUSTOMER ONLY
   public customerRegister = (user: RegisterUser): Observable<User> => {
