@@ -35,7 +35,7 @@ export class CustomerRegisterComponent implements OnInit {
           }
         },
         (error:any)=> {
-          this.error = error.error;
+          this.error = error.error.error;
         }
       )
     }

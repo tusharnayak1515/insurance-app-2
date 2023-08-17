@@ -47,7 +47,7 @@ export class AddAdminComponent implements OnInit {
           }
         },
         (error:any) => {
-          this.toastr.error(error.error || "Add admin failed");
+          this.toastr.error(error.error.error || "Add admin failed");
           console.error('Error adding admin', error);
         }
       );

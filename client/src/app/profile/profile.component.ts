@@ -56,8 +56,8 @@ export class ProfileComponent implements OnInit {
           }
         },
         (error: any) => {
-          console.error(error.error);
-          this.toastr.error(error.error.error);
+          console.error(error.error.error);
+          this.toastr.error(error.error.error.error);
         }
       );
     }
@@ -86,7 +86,7 @@ export class ProfileComponent implements OnInit {
         },
         (error:any)=> {
           console.log(error);
-          this.toastr.error(error.error);
+          this.toastr.error(error.error.error);
         }
       );
     }
